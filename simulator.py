@@ -55,31 +55,37 @@ sleep(3)
 operationCnt = selectCnt()
 roundingPoint = selectRound()
 successCnt = 0
-rate = 0
 
 for tryCnt in range(operationCnt):
-    option = [1, 2, 3]
-    initSelection = choice(option)
-    car = choice(option)
+    options = [1, 2, 3]
+    initSelection = choice(options)
+    prizeOption = choice(options)
 
-    if initSelection == car:
-        option.remove(car)
-        anotherGoat = choice(option)
-        option.remove(anotherGoat)
-        finalSelection = choice(option)
-        result = '실패 '
+    if initSelection == prizeOption:
+        options.remove(prizeOption)
+        wrongOption = choice(options)
     
     else:
-        option.remove(initSelection)
-        option.remove(car)
-        anotherGoat = choice(option)
-        finalSelection = car
+        options.remove(initSelection)
+        options.remove(prizeOption)
+        wrongOption = choice(options)
+
+    resultOptions = [1, 2, 3]
+    resultOptions.remove(initSelection)
+    resultOptions.remove(wrongOption)
+
+    finalSelection = choice(resultOptions)
+
+    if finalSelection == prizeOption:
         result = '성공!'
         successCnt += 1
+
+    else:
+        result = '실패 '
 
     rate = successCnt / (tryCnt+1) * 100
 
     print('{0}회    |    정답 : {1}    첫 선택 : {2}    오답 확인 : {3}    다른 선택 : {4}    결과 : {5} ... {6}%'.
-    format(tryCnt+1, car, initSelection, anotherGoat, finalSelection, result, round(rate, roundingPoint)))
+    format(tryCnt+1, prizeOption, initSelection, wrongOption, finalSelection, result, round(rate, roundingPoint)))
 
 os.system('pause')
